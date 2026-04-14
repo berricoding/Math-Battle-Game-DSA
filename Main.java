@@ -4,9 +4,8 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-
+        GameManager game = new GameManager();
         while (true) {
-            GameManager game = new GameManager();
             game.startGame(sc);
 
 

@@ -1,4 +1,5 @@
-
+//Doubly Linked List
+//To rotate the enemy
 public class Node {
     Player data;
     Node next;

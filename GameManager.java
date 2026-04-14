@@ -1,14 +1,11 @@
 import java.util.*;
 
-public class GameManager {
-    // Queue is used to manage questions in FIFO order (First-In-First-Out)
-    // Generics ensure type safety by only allowing Question objects
+public class GameManager { // Generics ensure only String data is stored safely
+// Queue is used to manage questions in FIFO order (First-In-First-Out)
     private Queue<Question> questions = new LinkedList<>(); 
-    // Stack is used to store history in LIFO order (Last-In-First-Out)
-    // Generics ensure only String data is stored safely
+// Stack is used to store history in LIFO order (Last-In-First-Out)
     private Stack<String> history = new Stack<>(); 
-    // Set is used to prevent duplicate questions
-    // Generics ensure only String values (questions) are stored
+// Set is used to prevent duplicate questions
     private Leaderboard leaderboard = new Leaderboard();
 
     private int damage = 10;
@@ -50,7 +47,8 @@ public class GameManager {
 
         Player player = new Player(name, 100);
 
-        // Create circular linked list of enemies
+// Create circular linked list of enemies
+//used to link enemies in a loop, allowing the game to rotate between enemies continuously across rounds.
         EnemyCLL enemyList = new EnemyCLL();
 
         Enemy enemy1 = new Enemy("Enemy 1", 100);
@@ -64,15 +62,14 @@ public class GameManager {
       
         Enemy enemy = enemyList.getHead();
 
-        // rotate enemy based on roundCounter
+// rotate enemy based on roundCounter
         for (int i = 0; i < roundCounter % 3; i++) {
             enemy = enemyList.getNextEnemy(enemy);
         }
 
-        // demonstrate circular behavior
         System.out.println("Current: " + enemy.name);
 
-        // Demonstrate circular behavior
+// Demonstrate circular behavior
         Enemy nextEnemy = enemyList.getNextEnemy(enemy);
         System.out.println("Next enemy (circular): " + nextEnemy.name);
 
@@ -119,8 +116,9 @@ public class GameManager {
 
         System.out.println(player.getHp() > 0 ? "YOU WIN!" : "ENEMY WINS!");
 
-        leaderboard.add(player);
+        leaderboard.add(new Player(player.getName(), player.getHp()));
         leaderboard.display();
+        leaderboard.displayReverse();
 
         System.out.println("\nHistory:");
         showHistoryRecursive(history);
@@ -130,7 +128,8 @@ public class GameManager {
     }
 
     private void loadQuestions(int d) {
-
+//HashSet
+//A HashSet ensures that only unique questions are added, improving gameplay variety.
         Set<String> used = new HashSet<>();
         int limit = (d == 3) ? 5 : 10; 
 
@@ -143,7 +142,8 @@ public class GameManager {
             }
         }
     }
-
+//Recursion
+//used to show the history
     private void showHistoryRecursive(Stack<String> stack) {
          Stack<String> temp = new Stack<>();
     temp.addAll(stack);

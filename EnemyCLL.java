@@ -1,4 +1,4 @@
-public class EnemyCLL {
+public class EnemyCLL{//used to link enemies in a loop, allowing the game to rotate between enemies continuously across rounds.
     private Enemy head;
 
     public void add(Enemy e) {

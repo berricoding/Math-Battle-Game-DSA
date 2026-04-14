@@ -43,6 +43,7 @@ public class MathQuestion implements Question {
     }
 
     //  recursion
+    //Recursion is used to make the fibonnaci questions and factorail questions and power questions
     private int factorial(int n) {
         if (n <= 1) return 1;
         return n * factorial(n - 1);
