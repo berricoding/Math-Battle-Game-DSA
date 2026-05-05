@@ -1,6 +1,5 @@
-   //Singular Linked List
-   //A singly linked list is used to store and display leaderboard data, allowing flexible insertion without fixed size.
-
+// Doubly Linked List
+// Stores leaderboard and allows forward & reverse traversal
 public class Leaderboard {
     private Node head;
     private Node tail;

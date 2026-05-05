@@ -7,10 +7,11 @@ public class GameManager { // Generics ensure only String data is stored safely
     private Stack<String> history = new Stack<>(); 
 // Set is used to prevent duplicate questions
     private Leaderboard leaderboard = new Leaderboard();
+    private SimpleSLL rounds = new SimpleSLL();
 
     private int damage = 10;
 
-    // needed for round-based enemy rotation)
+    // needed for round-based leaderboard
     private static int roundCounter = 0;
 
     public void startGame(Scanner sc) {
@@ -58,20 +59,21 @@ public class GameManager { // Generics ensure only String data is stored safely
         enemyList.add(enemy1);
         enemyList.add(enemy2);
         enemyList.add(enemy3);
-
+        System.out.println("\nEnemy Cycle:");
+         enemyList.displayCycleOnce();
       
         Enemy enemy = enemyList.getHead();
 
 // rotate enemy based on roundCounter
-        for (int i = 0; i < roundCounter % 3; i++) {
-            enemy = enemyList.getNextEnemy(enemy);
-        }
+       for (int i = 0; i < roundCounter % enemyList.getSize(); i++) {
+    enemy = enemyList.getNextEnemy(enemy);
+}
 
-        System.out.println("Current: " + enemy.name);
+        System.out.println("Current: " + enemy.getName());
 
 // Demonstrate circular behavior
         Enemy nextEnemy = enemyList.getNextEnemy(enemy);
-        System.out.println("Next enemy (circular): " + nextEnemy.name);
+        System.out.println("Next enemy (circular): " + nextEnemy.getName());
 
         loadQuestions(difficulty);
 
@@ -119,12 +121,15 @@ public class GameManager { // Generics ensure only String data is stored safely
         leaderboard.add(new Player(player.getName(), player.getHp()));
         leaderboard.display();
         leaderboard.displayReverse();
+        rounds.add(roundCounter);
+        roundCounter++;
 
+        System.out.println("\nRounds played (SLL):");
+        rounds.display();
+      
         System.out.println("\nHistory:");
         showHistoryRecursive(history);
 
-      
-        roundCounter++;
     }
 
     private void loadQuestions(int d) {
@@ -144,10 +149,8 @@ public class GameManager { // Generics ensure only String data is stored safely
     }
 //Recursion
 //used to show the history
-    private void showHistoryRecursive(Stack<String> stack) {
-         Stack<String> temp = new Stack<>();
-    temp.addAll(stack);
-     showHelper(temp);
+   private void showHistoryRecursive(Stack<String> stack) {
+    showHelper(stack);
 }
 
     private void showHelper(Stack<String> stack) {
